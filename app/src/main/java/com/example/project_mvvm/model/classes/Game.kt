@@ -4,14 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
 class Game {
-    companion object {
-        val TAG: String? = Game::class.simpleName
-        var BOARD_SIZE: Int = 3
-    }
+    var BOARD_SIZE: Int = 3
 
     var player1: Player?
     var player2: Player?
-
     var currentPlayer: Player?
 
     var cells = arrayOf<Array<Cell?>>()

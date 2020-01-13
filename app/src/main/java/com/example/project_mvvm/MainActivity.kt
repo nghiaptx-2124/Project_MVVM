@@ -13,9 +13,7 @@ import com.example.project_mvvm.viewmodel.GameViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private companion object {
-        val NO_ONE: String = "No one"
-    }
+    val NO_ONE: String = "No one"
 
     lateinit var gameViewModel: GameViewModel
 

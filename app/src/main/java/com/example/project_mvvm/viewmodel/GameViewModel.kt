@@ -49,6 +49,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
     fun getWinners(): MutableLiveData<Player?> {
         return game.winner
     }
