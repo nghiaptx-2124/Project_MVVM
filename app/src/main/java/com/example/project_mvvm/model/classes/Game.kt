@@ -1,5 +1,6 @@
 package com.example.project_mvvm.model.classes
 
+import androidx.databinding.ObservableArrayMap
 import androidx.lifecycle.MutableLiveData
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
@@ -13,6 +14,7 @@ class Game {
     var cells = arrayOf<Array<Cell?>>()
 
     val winner: MutableLiveData<Player?> = MutableLiveData()
+
 
     constructor(playerOneName: String, playerTwoName: String) {
         cells = Array(
@@ -44,22 +46,21 @@ class Game {
         return false
     }
 
-    fun hasThreeSameOnVericalsCells(): Boolean {
+    fun hasThreeSameOnHorizontalsCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer
 
         return areEquals(value, cells[0][0], cells[0][1], cells[0][2])
                 || areEquals(value, cells[1][0], cells[1][1], cells[1][2])
-                || areEquals(value, cells[2][0], cells[2][1], cells[2][0])
+                || areEquals(value, cells[2][0], cells[2][1], cells[2][2])
 
     }
 
-    fun hasThreeSameOnHorizontalsCells(): Boolean {
+    fun hasThreeSameOnVericalsCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer
 
         return areEquals(value, cells[0][0], cells[1][0], cells[2][0])
                 || areEquals(value, cells[0][1], cells[1][1], cells[2][1])
                 || areEquals(value, cells[0][2], cells[1][2], cells[2][2])
-
     }
 
     fun hasThreeSameOnDiagnoCells(): Boolean {
@@ -91,9 +92,10 @@ class Game {
     }
 
     fun reset() {
-        currentPlayer = player1
+
         cells = Array(BOARD_SIZE, { arrayOfNulls<Cell>(
             BOARD_SIZE
         ) })
+        currentPlayer = player1
     }
 }

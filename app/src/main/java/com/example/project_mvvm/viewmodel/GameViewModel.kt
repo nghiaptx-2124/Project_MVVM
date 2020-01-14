@@ -22,6 +22,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun Init(p1: String, p2: String) {
         game = Game(p1, p2)
         cells = ObservableArrayMap()
+
     }
 
     //Bat su kien BindingData
@@ -29,9 +30,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
         if (game.cells[r][c] == null) {
             game.cells[r][c] = game.currentPlayer?.let {
-                Cell(
-                    it
-                )
+                Cell(it)
             }
             var res = 0
             if (game.currentPlayer?.valuePlayer == PlayerValue.VALUE_X) {
@@ -53,6 +52,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun getWinners(): MutableLiveData<Player?> {
         return game.winner
     }
+
 
     fun resetGame() {
         val handler = Handler(Looper.getMainLooper())

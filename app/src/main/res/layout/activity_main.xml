@@ -35,7 +35,7 @@
             android:layout_columnWeight="1"
             android:background="@drawable/ic_background"
             android:onClick="@{() -> gameViewModel.onClickAtCell(0,1)}"
-            app:imageResource='@{gameViewModel.cells["01"]}' />
+            app:imageResource='@{gameViewModel.cells.get("01")}' />
 
         <ImageView
             android:id="@+id/cell2"
