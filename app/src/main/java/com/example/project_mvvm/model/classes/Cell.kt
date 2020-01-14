@@ -1,15 +1,12 @@
 package com.example.project_mvvm.model.classes
 
-import androidx.lifecycle.MutableLiveData
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
-class Cell {
+class Cell(player: Player) {
     var player: Player
 
-
-    constructor(player: Player) {
+    init {
         this.player = player
-
     }
 
     fun isEmpty(): Boolean {

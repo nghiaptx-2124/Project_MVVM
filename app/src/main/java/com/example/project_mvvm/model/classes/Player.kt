@@ -2,13 +2,15 @@ package com.example.project_mvvm.model.classes
 
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
-class Player {
+class Player(name: String, value: String) {
      var name: String
      var valuePlayer: PlayerValue
+     var score: Int
 
     //Kiem tra gia tri truyen vao la X hay O
-    constructor (name: String, value: String) {
+    init {
         this.name = name
+        score = 0
         if (value.equals("x", true)) {
             valuePlayer = PlayerValue.VALUE_X
         } else if (value.equals("o", true)) {
@@ -17,5 +19,7 @@ class Player {
             valuePlayer = PlayerValue.VALUE_EMPTY
         }
     }
+
+
 
 }

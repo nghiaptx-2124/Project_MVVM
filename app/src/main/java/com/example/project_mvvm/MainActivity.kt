@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val NO_ONE: String = "No one"
+    val DRAW = "Hòa"
 
     lateinit var gameViewModel: GameViewModel
 
@@ -34,12 +34,11 @@ class MainActivity : AppCompatActivity() {
         gameViewModel.getWinners().observe(this, Observer { onGameWinnerChange(it) })
     }
 
-    @VisibleForTesting
     fun onGameWinnerChange(winner: Player?) {
         var winnerName = if (winner?.name != null
             && winner != null
             && winner.name.isNotEmpty()
-        ) winner.name else NO_ONE
+        ) winner.name else DRAW
         Toast.makeText(applicationContext, "$winnerName", Toast.LENGTH_SHORT).show()
     }
 

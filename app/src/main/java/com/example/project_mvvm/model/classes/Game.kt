@@ -1,37 +1,39 @@
 package com.example.project_mvvm.model.classes
 
-import androidx.databinding.ObservableArrayMap
 import androidx.lifecycle.MutableLiveData
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
-class Game {
+class Game (playerOneName: String, playerTwoName: String)  {
     var BOARD_SIZE: Int = 3
 
     var player1: Player?
     var player2: Player?
     var currentPlayer: Player?
-
+    var scorePlayer1: Int
+    var scorePlayer2: Int
     var cells = arrayOf<Array<Cell?>>()
 
     val winner: MutableLiveData<Player?> = MutableLiveData()
-    val cellSS: MutableLiveData<ObservableArrayMap<String, Int>> = MutableLiveData()
 
 
-    constructor(playerOneName: String, playerTwoName: String) {
+    init {
         cells = Array(
             BOARD_SIZE
         ) { arrayOfNulls<Cell>(BOARD_SIZE) }
         player1 =
             Player(playerOneName, "x")
+        scorePlayer1 = 0
         player2 =
             Player(playerTwoName, "o")
-
+        scorePlayer2 = 0
         currentPlayer = player1
     }
 
     fun switchPlayer() {
         currentPlayer = if (currentPlayer == player1) player2 else player1
     }
+
+    //Game kết thúc khi thỏa 3 hàm
 
     fun isGameEnded(): Boolean {
         if (hasThreeSameOnHorizontalsCells()
@@ -47,6 +49,16 @@ class Game {
         return false
     }
 
+    fun increasePointWinner(): Int {
+        if (winner.value == player1)
+            return scorePlayer1++
+        else if (winner.value == player2)
+            return scorePlayer2++
+        else
+            return 0
+    }
+
+    //Nếu có 3 ô hàng ngang giống nhau
 
     fun hasThreeSameOnHorizontalsCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer
@@ -57,6 +69,8 @@ class Game {
 
     }
 
+    //Nếu có 3 ô hàng dọc giống nhau
+
     fun hasThreeSameOnVericalsCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer
 
@@ -65,6 +79,8 @@ class Game {
                 || areEquals(value, cells[0][2], cells[1][2], cells[2][2])
     }
 
+    //Nếu có 3 ô đường chéo giống nhau
+
     fun hasThreeSameOnDiagnoCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer
 
@@ -72,6 +88,8 @@ class Game {
                 || areEquals(value, cells[0][2], cells[1][1], cells[2][0])
 
     }
+
+    //Kiểm tra đã điền hết các ô
 
     fun isBoardFull(): Boolean {
         for (numDong in 0 until BOARD_SIZE) {
@@ -84,6 +102,8 @@ class Game {
         return true
     }
 
+    //Kiểm tra ô đã được điền hay chưa
+
     fun areEquals(value: PlayerValue, vararg cell: Cell?): Boolean {
         cell.forEach {
             if (it == null || it.isEmpty() || it.player != currentPlayer || it.player.valuePlayer != value) {
@@ -93,11 +113,9 @@ class Game {
         return true
     }
 
+    //Reset giá trị về ban đầu
     fun reset() {
-
-        cells = Array(BOARD_SIZE, { arrayOfNulls<Cell>(
-            BOARD_SIZE
-        ) })
+        cells = Array(BOARD_SIZE, { arrayOfNulls<Cell>( BOARD_SIZE ) })
         currentPlayer = player1
     }
 }

@@ -23,10 +23,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
 
     //Bat su kien BindingData
-    fun onClickAtCell(r: Int, c: Int) {
-
-        if (game.cells[r][c] == null) {
-            game.cells[r][c] = game.currentPlayer?.let {
+    fun onClickAtCell(row: Int, column: Int) {
+        if (game.cells[row][column] == null) {
+            game.cells[row][column] = game.currentPlayer?.let {
                 Cell(it)
             }
             var res = 0
@@ -35,7 +34,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 res = R.drawable.ic_oval
             }
-            cells.put(r.toString() + c.toString(), res)
+            cells.put(row.toString() + column.toString(), res)
 
             if (game.isGameEnded()) {
                 resetGame()
@@ -46,7 +45,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-
+    fun getPoint(): String {
+        return "${game.increasePointWinner()}"
+    }
 
     fun getWinners(): MutableLiveData<Player?> {
         return game.winner
