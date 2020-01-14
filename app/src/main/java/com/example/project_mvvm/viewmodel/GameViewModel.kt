@@ -3,6 +3,8 @@ package com.example.project_mvvm.viewmodel
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableArrayMap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -16,14 +18,9 @@ import com.example.project_mvvm.model.enumclass.PlayerValue
 
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
-    lateinit var cells: ObservableArrayMap<String, Int>
-    private lateinit var game: Game
+    var cells: ObservableArrayMap<String, Int> = ObservableArrayMap()
+    private var game: Game = Game("P1", "P2")
 
-    fun Init(p1: String, p2: String) {
-        game = Game(p1, p2)
-        cells = ObservableArrayMap()
-
-    }
 
     //Bat su kien BindingData
     fun onClickAtCell(r: Int, c: Int) {
@@ -46,11 +43,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 game.switchPlayer()
             }
         }
+
     }
+
 
 
     fun getWinners(): MutableLiveData<Player?> {
         return game.winner
+
     }
 
 

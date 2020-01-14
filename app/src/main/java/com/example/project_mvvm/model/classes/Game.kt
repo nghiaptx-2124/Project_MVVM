@@ -14,6 +14,7 @@ class Game {
     var cells = arrayOf<Array<Cell?>>()
 
     val winner: MutableLiveData<Player?> = MutableLiveData()
+    val cellSS: MutableLiveData<ObservableArrayMap<String, Int>> = MutableLiveData()
 
 
     constructor(playerOneName: String, playerTwoName: String) {
@@ -45,6 +46,7 @@ class Game {
         }
         return false
     }
+
 
     fun hasThreeSameOnHorizontalsCells(): Boolean {
         val value: PlayerValue = currentPlayer!!.valuePlayer

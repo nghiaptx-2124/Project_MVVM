@@ -1,6 +1,7 @@
 package com.example.project_mvvm
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
@@ -25,17 +26,15 @@ class MainActivity : AppCompatActivity() {
         val activityGameBinding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-        gameViewModel.Init("P1", "P2")
         setUpListener()
         activityGameBinding.gameViewModel = gameViewModel
     }
-
 
     fun setUpListener() {
         gameViewModel.getWinners().observe(this, Observer { onGameWinnerChange(it) })
     }
 
-
+    @VisibleForTesting
     fun onGameWinnerChange(winner: Player?) {
         var winnerName = if (winner?.name != null
             && winner != null
@@ -43,5 +42,6 @@ class MainActivity : AppCompatActivity() {
         ) winner.name else NO_ONE
         Toast.makeText(applicationContext, "$winnerName", Toast.LENGTH_SHORT).show()
     }
+
 
 }
