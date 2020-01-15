@@ -1,16 +1,12 @@
 package com.example.project_mvvm
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayMap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.project_mvvm.databinding.ActivityMainBinding
-import com.example.project_mvvm.model.classes.Cell
 import com.example.project_mvvm.model.classes.Player
 import com.example.project_mvvm.viewmodel.GameViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setUpListener() {
         gameViewModel.getWinners().observe(this, Observer { onGameWinnerChange(it) })
+        gameViewModel.getPointPlayer1().observe(this, Observer { txtScorePlayer1.text = "$it" })
+        gameViewModel.getPointPlayer2().observe(this, Observer { txtScorePlayer2.text = "$it" })
     }
 
     fun onGameWinnerChange(winner: Player?) {

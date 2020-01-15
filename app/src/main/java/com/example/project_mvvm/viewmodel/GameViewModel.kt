@@ -3,13 +3,9 @@ package com.example.project_mvvm.viewmodel
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.view.View
 import androidx.databinding.ObservableArrayMap
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.project_mvvm.R
 import com.example.project_mvvm.model.classes.Cell
 import com.example.project_mvvm.model.classes.Game
@@ -21,6 +17,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     var cells: ObservableArrayMap<String, Int> = ObservableArrayMap()
     private var game: Game = Game("P1", "P2")
 
+    var scorePlayer1: MutableLiveData<Int> = MutableLiveData()
+    var scorePlayer2: MutableLiveData<Int> = MutableLiveData()
+    val winner: MutableLiveData<Player?> = MutableLiveData()
 
     //Bat su kien BindingData
     fun onClickAtCell(row: Int, column: Int) {
@@ -37,6 +36,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             cells.put(row.toString() + column.toString(), res)
 
             if (game.isGameEnded()) {
+                winner.value = game.winner
+                scorePlayer1.value = game.increasePointPlayer1()
+                scorePlayer2.value = game.increasePointPlayer2()
                 resetGame()
             } else {
                 game.switchPlayer()
@@ -45,12 +47,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getPoint(): String {
-        return "${game.increasePointWinner()}"
+    fun getPointPlayer1(): MutableLiveData<Int> {
+        return scorePlayer1
     }
 
+    fun getPointPlayer2(): MutableLiveData<Int> {
+        return scorePlayer2
+    }
+
+
     fun getWinners(): MutableLiveData<Player?> {
-        return game.winner
+        return winner
 
     }
 

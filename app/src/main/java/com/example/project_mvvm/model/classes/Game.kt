@@ -1,20 +1,19 @@
 package com.example.project_mvvm.model.classes
 
-import androidx.lifecycle.MutableLiveData
 import com.example.project_mvvm.model.enumclass.PlayerValue
 
-class Game (playerOneName: String, playerTwoName: String)  {
+class Game(playerOneName: String, playerTwoName: String) {
     var BOARD_SIZE: Int = 3
 
     var player1: Player?
     var player2: Player?
     var currentPlayer: Player?
-    var scorePlayer1: Int
-    var scorePlayer2: Int
     var cells = arrayOf<Array<Cell?>>()
 
-    val winner: MutableLiveData<Player?> = MutableLiveData()
+    var winner: Player? = null
 
+    var scorePlayer1: Int
+    var scorePlayer2: Int
 
     init {
         cells = Array(
@@ -40,22 +39,25 @@ class Game (playerOneName: String, playerTwoName: String)  {
             || hasThreeSameOnVericalsCells()
             || hasThreeSameOnDiagnoCells()
         ) {
-            winner.value = currentPlayer
+            winner = currentPlayer
             return true
         } else if (isBoardFull()) {
-            winner.value = null
+            winner = null
             return true
         }
         return false
     }
 
-    fun increasePointWinner(): Int {
-        if (winner.value == player1)
-            return scorePlayer1++
-        else if (winner.value == player2)
-            return scorePlayer2++
-        else
-            return 0
+    fun increasePointPlayer1(): Int {
+        if (winner == player1)
+            return ++scorePlayer1
+        return scorePlayer1
+    }
+
+    fun increasePointPlayer2(): Int? {
+        if (winner == player2)
+            return ++scorePlayer2
+        return scorePlayer2
     }
 
     //Nếu có 3 ô hàng ngang giống nhau
@@ -113,9 +115,10 @@ class Game (playerOneName: String, playerTwoName: String)  {
         return true
     }
 
+
     //Reset giá trị về ban đầu
     fun reset() {
-        cells = Array(BOARD_SIZE, { arrayOfNulls<Cell>( BOARD_SIZE ) })
+        cells = Array(BOARD_SIZE, { arrayOfNulls<Cell>(BOARD_SIZE) })
         currentPlayer = player1
     }
 }
