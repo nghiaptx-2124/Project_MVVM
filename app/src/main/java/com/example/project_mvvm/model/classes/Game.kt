@@ -12,19 +12,15 @@ class Game(playerOneName: String, playerTwoName: String) {
 
     var winner: Player? = null
 
-    var scorePlayer1: Int
-    var scorePlayer2: Int
 
     init {
         cells = Array(
             BOARD_SIZE
         ) { arrayOfNulls<Cell>(BOARD_SIZE) }
         player1 =
-            Player(playerOneName, "x")
-        scorePlayer1 = 0
+            Player(playerOneName, "x",0)
         player2 =
-            Player(playerTwoName, "o")
-        scorePlayer2 = 0
+            Player(playerTwoName, "o",0)
         currentPlayer = player1
     }
 
@@ -50,14 +46,14 @@ class Game(playerOneName: String, playerTwoName: String) {
 
     fun increasePointPlayer1(): Int {
         if (winner == player1)
-            return ++scorePlayer1
-        return scorePlayer1
+            return ++player1!!.score
+        return player1!!.score
     }
 
-    fun increasePointPlayer2(): Int? {
+    fun increasePointPlayer2(): Int {
         if (winner == player2)
-            return ++scorePlayer2
-        return scorePlayer2
+            return ++player2!!.score
+        return player2!!.score
     }
 
     //Nếu có 3 ô hàng ngang giống nhau

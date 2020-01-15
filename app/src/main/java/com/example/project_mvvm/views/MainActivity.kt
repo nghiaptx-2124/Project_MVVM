@@ -1,4 +1,4 @@
-package com.example.project_mvvm
+package com.example.project_mvvm.views
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.project_mvvm.R
 import com.example.project_mvvm.databinding.ActivityMainBinding
 import com.example.project_mvvm.model.classes.Player
 import com.example.project_mvvm.viewmodel.GameViewModel
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val activityGameBinding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
+            DataBindingUtil.setContentView(this,
+                R.layout.activity_main
+            )
         gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         setUpListener()
         activityGameBinding.gameViewModel = gameViewModel
