@@ -18,6 +18,5 @@ class Player(name: String, value: String, score: Int) {
             valuePlayer = PlayerValue.VALUE_EMPTY
         }
     }
-
-
+    // Thang nao do commit va merge vao master
 }
