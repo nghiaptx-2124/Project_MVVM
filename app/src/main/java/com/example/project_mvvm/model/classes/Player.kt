@@ -19,4 +19,5 @@ class Player(name: String, value: String, score: Int) {
         }
     }
     // Thang nao do commit va merge vao master
+    // commit lan 2
 }
