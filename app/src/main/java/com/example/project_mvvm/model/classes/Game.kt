@@ -4,7 +4,7 @@ import com.example.project_mvvm.model.enumclass.PlayerValue
 
 class Game(playerOneName: String, playerTwoName: String) {
     var BOARD_SIZE: Int = 3
-
+//Da comment
     var player1: Player?
     var player2: Player?
     var currentPlayer: Player?
